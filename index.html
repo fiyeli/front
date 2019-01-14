@@ -3,85 +3,19 @@
 <head>
     <meta charset="utf-8">
     <title>Fiyeli</title>
-    <link rel="stylesheet" type="text/css" href="./default.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 </head>
 <body>
 <canvas id="canvas"></canvas>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<p>Date: <input type="text" id="datepicker"><input type="submit" value="Select" id="selectDate"></p>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
-<script type="text/javascript">
-    $(document).ready(function () {
-        window.chartColors = {
-            red: 'rgb(255, 99, 132)',
-            orange: 'rgb(255, 159, 64)',
-            yellow: 'rgb(255, 205, 86)',
-            green: 'rgb(75, 192, 192)',
-            blue: 'rgb(54, 162, 235)',
-            purple: 'rgb(153, 102, 255)',
-            grey: 'rgb(201, 203, 207)'
-        };
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.6/chartjs-plugin-zoom.min.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
 
-        let apiData = {'labels': [], 'values': []};
-        var chartConfig = {
-            type: 'line',
-            data: {
-                labels: apiData.labels,
-                datasets: [{
-                    label: 'Nombre de personnes',
-                    backgroundColor: window.chartColors.blue,
-                    borderColor: window.chartColors.blue,
-                    data: apiData.values,
-                    fill: false
-                }]
-            },
-            options: {
-                responsive: true,
-                title: {
-                    display: true,
-                    text: 'Fiyeli voila'
-                },
-                tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                },
-                hover: {
-                    mode: 'nearest',
-                    intersect: true
-                },
-                scales: {
-                    xAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Month'
-                        }
-                    }],
-                    yAxes: [{
-                        display: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Value'
-                        }
-                    }]
-                }
-            }
-        };
-
-        $.ajax({
-            url: "http://localhost:5000/stats/2019-01-11"
-        }).then(function (data) {
-            $.each(data, function (key, value) {
-                console.log(moment(parseInt(value[0])*1000));
-                apiData.labels[key] = moment(parseInt(value[0])*1000).format("YYYY-DD-MM, HH:MM:ss");
-                apiData.values[key] = value[1];
-            });
-            var ctx = document.getElementById('canvas').getContext('2d');
-            var myLineChart = new Chart(ctx, chartConfig);
-
-        });
-    });
-</script>
 </body>
 </html>
