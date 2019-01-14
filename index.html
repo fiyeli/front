@@ -10,6 +10,7 @@
 
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
         window.chartColors = {
@@ -72,7 +73,8 @@
             url: "http://localhost:5000/stats/2019-01-11"
         }).then(function (data) {
             $.each(data, function (key, value) {
-                apiData.labels[key] = value[0];
+                console.log(moment(parseInt(value[0])*1000));
+                apiData.labels[key] = moment(parseInt(value[0])*1000).format("YYYY-DD-MM, HH:MM:ss");
                 apiData.values[key] = value[1];
             });
             var ctx = document.getElementById('canvas').getContext('2d');
