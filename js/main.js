@@ -1,6 +1,11 @@
 $(document).ready(function () {
     window.dates = getAllDates();
     $('#datepicker').datepicker({dateFormat: 'yy-mm-dd', beforeShowDay: available});
+    // Date selector handler
+    $('#datepicker').change(function (event) {
+        event.preventDefault();
+        getDataForOneDate($('#datepicker').val(), apiData);
+    });
 
     // Colors to use for chart
     window.chartColors = {
@@ -78,12 +83,6 @@ $(document).ready(function () {
         window.ownChart.update();
 
     });
-
-    // Date selector handler
-    $('#selectDate').click(function (event) {
-        event.preventDefault();
-        getDataForOneDate($('#datepicker').val(), apiData);
-    });
 });
 
 function getAllDates() {
@@ -95,7 +94,8 @@ function getAllDates() {
             $.each(value, function (dummyKey, apiUrl) {
                 dates.push(moment(apiUrl.split('/')[2]).format("YYYY-MM-DD"));
             })
-        })
+        });
+        $('#datepicker').datepicker("refresh");
     });
     return dates
 }
