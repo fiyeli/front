@@ -94,11 +94,11 @@ $(document).ready(function () {
 
     // Initial values for chart
     $.ajax({
-        url: "http://localhost:5000/stats/2019-01-11"
+        url: "http://localhost:8000/stats/today"
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
-            apiData.labels[key] = moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:MM:ss");
+            apiData.labels[key] = moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:mm:ss");
             apiData.values[key] = value[1];
         });
         window.ownChart.update();
@@ -109,7 +109,7 @@ $(document).ready(function () {
 function getAllDates() {
     var dates = [];
     $.ajax({
-        url: "http://localhost:5000/stats"
+        url: "http://localhost:8000/stats"
     }).then(function (data) {
         $.each(data, function (key, value) {
             $.each(value, function (dummyKey, apiUrl) {
@@ -136,11 +136,11 @@ function getDataForOneDate(date, apiData) {
     apiData.values = [];
 
     $.ajax({
-        url: "http://localhost:5000/stats/" + momentDate.format('YYYY-MM-DD')
+        url: "http://localhost:8000/stats/" + momentDate.format('YYYY-MM-DD')
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
-            apiData.labels.push(moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:MM:ss"));
+            apiData.labels.push(moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:mm:ss"));
             apiData.values.push(value[1]);
         });
         changeChartData(window.ownChart, apiData.labels, apiData.values);
@@ -154,11 +154,11 @@ function getDataForOneMonth(date, apiData) {
     apiData.values = [];
 
     $.ajax({
-        url: "http://localhost:5000/stats/" + momentDate.format('YYYY-MM')
+        url: "http://localhost:8000/stats/" + momentDate.format('YYYY-MM')
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
-            apiData.labels.push(moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:MM:ss"));
+            apiData.labels.push(moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:mm:ss"));
             apiData.values.push(value[1]);
         });
         changeChartData(window.ownChart, apiData.labels, apiData.values);
