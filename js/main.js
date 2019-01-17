@@ -1,3 +1,4 @@
+FIYELI_IP = 'http://localhost:8000';
 $(document).ready(function () {
     window.dates = getAllDates();
     $('#datepicker').datepicker({dateFormat: 'yy-mm-dd', beforeShowDay: available});
@@ -94,7 +95,7 @@ $(document).ready(function () {
 
     // Initial values for chart
     $.ajax({
-        url: "http://localhost:8000/stats/today"
+        url: FIYELI_IP + "/stats/today"
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
@@ -109,7 +110,7 @@ $(document).ready(function () {
 function getAllDates() {
     var dates = [];
     $.ajax({
-        url: "http://localhost:8000/stats"
+        url: FIYELI_IP + "/stats"
     }).then(function (data) {
         $.each(data, function (key, value) {
             $.each(value, function (dummyKey, apiUrl) {
@@ -136,7 +137,7 @@ function getDataForOneDate(date, apiData) {
     apiData.values = [];
 
     $.ajax({
-        url: "http://localhost:8000/stats/" + momentDate.format('YYYY-MM-DD')
+        url: FIYELI_IP + "/stats/" + momentDate.format('YYYY-MM-DD')
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
@@ -154,7 +155,7 @@ function getDataForOneMonth(date, apiData) {
     apiData.values = [];
 
     $.ajax({
-        url: "http://localhost:8000/stats/" + momentDate.format('YYYY-MM')
+        url: FIYELI_IP + "/stats/" + momentDate.format('YYYY-MM')
     }).then(function (data) {
         $.each(data, function (key, value) {
             // We convert timestamp to date
