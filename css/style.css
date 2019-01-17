@@ -1,0 +1,44 @@
+body {
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+}
+
+header {
+    text-align: center;
+}
+
+.canvasWrapper {
+    width: 75%;
+    margin-left: 20px;
+    margin-right: auto;
+    display: inline-block;
+}
+
+.spoiler > .header {
+    border: 1px solid black;
+    border-radius: 3px;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.spoiler > .body {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+.spoiler > .body > #datepicker, .spoiler > .body > #monthpicker {
+    display:inline-block;
+    margin:0 auto;
+}
+
+aside {
+    display: inline-block;
+    vertical-align: top;
+    width: 23%;
+}
+
+div#monthpicker.hasDatepicker table.ui-datepicker-calendar{
+    display: none;
+}

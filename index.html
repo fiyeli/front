@@ -3,18 +3,39 @@
 <head>
     <meta charset="utf-8">
     <title>Fiyeli</title>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="css/style.css"/>
 </head>
 <body>
-<canvas id="canvas"></canvas>
+<header>
+    <h1>Visualisation des statistiques de Fiyeli</h1>
+</header>
+<div class="canvasWrapper">
+    <canvas id="canvas"></canvas>
+</div>
+<aside>
+    <div class="datePickerWrapper spoiler">
+        <div class="header">Sélectionnez une date</div>
+        <div class="body">
+            <div id="datepicker"></div>
+        </div>
+    </div>
 
-<div id="datepicker" ></div>
+    <div class="monthPickerWrapper spoiler">
+        <div class="header">Sélectionnez un mois</div>
+        <div class="body">
+            <div id="monthpicker"></div>
+        </div>
+    </div>
+</aside>
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.6/chartjs-plugin-zoom.min.js"></script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.6/chartjs-plugin-zoom.min.js"></script>
 <script type="text/javascript" src="js/main.js"></script>
 
 </body>

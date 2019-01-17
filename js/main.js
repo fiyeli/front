@@ -7,6 +7,27 @@ $(document).ready(function () {
         getDataForOneDate($('#datepicker').val(), apiData);
     });
 
+    $('#monthpicker').datepicker({
+        changeMonth: true,
+        changeYear: true,
+        showButtonPanel: true,
+        dateFormat: 'yy-mm',
+        onChangeMonthYear: function (year, month) {
+            console.log(year + '-' + month);
+            getDataForOneMonth(year + '-' + month, apiData);
+        }
+    });
+
+    hideAllBodies();
+
+    $('.spoiler > .header').click(function () {
+        if (!$(this).next().hasClass('open')) {
+            $('.spoiler > .body.open').slideUp().toggleClass('open');
+            $(this).next().slideToggle();
+            $(this).next().toggleClass('open')
+        }
+    });
+
     // Colors to use for chart
     window.chartColors = {
         red: 'rgb(255, 99, 132)',
@@ -38,7 +59,7 @@ $(document).ready(function () {
             responsive: true,
             title: {
                 display: true,
-                text: 'Fiyeli voila'
+                text: 'Visualisation des statistiques de Fiyeli'
             },
             tooltips: {
                 mode: 'index',
@@ -53,7 +74,7 @@ $(document).ready(function () {
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: 'Month'
+                        labelString: 'Date'
                     }
                 }],
                 yAxes: [{
@@ -126,8 +147,30 @@ function getDataForOneDate(date, apiData) {
     });
 }
 
+function getDataForOneMonth(date, apiData) {
+    momentDate = moment(date, "YYYY-MM");
+    // Empty existing data
+    apiData.labels = [];
+    apiData.values = [];
+
+    $.ajax({
+        url: "http://localhost:5000/stats/" + momentDate.format('YYYY-MM')
+    }).then(function (data) {
+        $.each(data, function (key, value) {
+            // We convert timestamp to date
+            apiData.labels.push(moment(parseInt(value[0]) * 1000).format("YYYY-MM-DD, HH:MM:ss"));
+            apiData.values.push(value[1]);
+        });
+        changeChartData(window.ownChart, apiData.labels, apiData.values);
+    });
+}
+
 function changeChartData(chart, labels, newData) {
     chart.data.labels = labels;
     chart.data.datasets[0].data = newData;
     chart.update();
+}
+
+function hideAllBodies() {
+    $('.spoiler > .body').hide();
 }
