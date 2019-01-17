@@ -1,4 +1,4 @@
-FIYELI_IP = 'http://localhost:8000';
+let FIYELI_IP = 'http://localhost:5000';
 $(document).ready(function () {
     window.dates = getAllDates();
     $('#datepicker').datepicker({dateFormat: 'yy-mm-dd', beforeShowDay: available});
@@ -6,6 +6,14 @@ $(document).ready(function () {
     $('#datepicker').change(function (event) {
         event.preventDefault();
         getDataForOneDate($('#datepicker').val(), apiData);
+    });
+
+    $('#changeIP').click(function (event) {
+       FIYELI_IP =  $('#fiyeliIP').val();
+       console.log(FIYELI_IP);
+       window.dates = getAllDates();
+       $('#datepicker').datepicker('refresh');
+       getTodayValues();
     });
 
     $('#monthpicker').datepicker({
@@ -28,6 +36,8 @@ $(document).ready(function () {
             $(this).next().toggleClass('open')
         }
     });
+
+    $('.spoiler:first > .body').show().addClass('open');
 
     // Colors to use for chart
     window.chartColors = {
@@ -92,7 +102,11 @@ $(document).ready(function () {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.ownChart = new Chart(ctx, chartConfig);
 
+    getTodayValues();
 
+});
+
+function getTodayValues() {
     // Initial values for chart
     $.ajax({
         url: FIYELI_IP + "/stats/today"
@@ -103,9 +117,8 @@ $(document).ready(function () {
             apiData.values[key] = value[1];
         });
         window.ownChart.update();
-
     });
-});
+}
 
 function getAllDates() {
     var dates = [];
